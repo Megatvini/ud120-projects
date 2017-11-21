@@ -38,6 +38,16 @@ labels_train   = labels_train[:150]
 
 
 ### your code goes here
+from sklearn.tree import DecisionTreeClassifier
 
+reg = DecisionTreeClassifier()
+reg.fit(features_train, labels_train)
+score = reg.score(features_test, labels_test)
+print score
 
+words = vectorizer.get_feature_names()
+print reg.feature_importances_.max()
+print reg.feature_importances_.argmax()
+print words[reg.feature_importances_.argmax()]
 
+print len(reg.feature_importances_[reg.feature_importances_ > 0.2])
