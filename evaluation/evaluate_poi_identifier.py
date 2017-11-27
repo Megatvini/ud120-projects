@@ -27,5 +27,19 @@ labels, features = targetFeatureSplit(data)
 
 
 ### your code goes here 
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import precision_score, recall_score
 
+X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.30, random_state=42)
 
+cls = DecisionTreeClassifier()
+cls.fit(X_train, y_train)
+print cls.score(X_test, y_test)
+
+print sum(y_test)
+print len(y_test)
+predictions = cls.predict(X_test)
+print 'true positives', sum(map(lambda x: x[0] * x[1], zip(predictions, y_test)))
+print 'precision', precision_score(y_test, predictions)
+print 'recall', recall_score(y_test, predictions)
